@@ -1,0 +1,38 @@
+{
+  "name": "test-mobapps",
+  "version": "1.0.0",
+  "description": "Teste de vaga backend júnior na mobapps",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasDSL/nodejs-movies-parser.git"
+  },
+  "keywords": [
+    "lucasdsl",
+    "teste",
+    "técnico",
+    "nodejs",
+    "backend"
+  ],
+  "author": "LucasDSL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasDSL/nodejs-movies-parser/issues"
+  },
+  "homepage": "https://github.com/LucasDSL/nodejs-movies-parser#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.16"
+  }
+}
