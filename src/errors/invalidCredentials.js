@@ -1,6 +1,6 @@
 module.exports = class InvalidCredentials extends Error {
   constructor() {
-    super('Usuário com email fornecido não encontrado!');
+    super('Email ou senha incorretos!');
     this.errId = 3;
     this.name = 'InvalidCredentials';
   }
