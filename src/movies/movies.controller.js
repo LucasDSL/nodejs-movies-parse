@@ -21,4 +21,8 @@ module.exports = class MoviesController {
       next(error);
     }
   }
+
+  static async patchMovie(req) {
+
+  }
 };

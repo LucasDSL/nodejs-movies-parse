@@ -4,7 +4,10 @@ const AuthService = require('../auth/auth.service');
 
 const router = Router();
 
-router.post('/', AuthService.authenticateToken, MoviesController.postMovie);
-router.get('/', AuthService.authenticateToken, MoviesController.getMovies);
+// Require authetication on all /movies routes
+router.all('/', AuthService.authenticateToken);
+router.post('/', MoviesController.postMovie);
+router.get('/', MoviesController.getMovies);
+router.patch('/:id', MoviesController.patchMovie);
 
 module.exports = router;
