@@ -27,7 +27,7 @@ const main = () => {
   app.use('/movies', moviesRoutes);
   app.use(errorHandler);
 
-  app.listen(process.env.PORT, () => console.log(`listening port ${process.env.PORT}`));
+  app.listen(process.env.PORT);
 };
 
 main();

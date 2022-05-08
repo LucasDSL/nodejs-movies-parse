@@ -18,6 +18,11 @@ class User extends Parse.Object {
     query.equalTo(field, equal);
     return query.first();
   }
+
+  static searchById(id) {
+    const query = new Parse.Query(User);
+    return query.get(id);
+  }
 }
 
 Parse.Object.registerSubclass('User', User);
