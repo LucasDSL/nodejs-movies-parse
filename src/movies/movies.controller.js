@@ -1,11 +1,12 @@
-const User = require('../user/user.entity');
+const { MovieNotFound } = require('../errors');
 const Movie = require('./movies.entity');
+const MoviesService = require('./movies.service');
 
 module.exports = class MoviesController {
   static async postMovie(req, res, next) {
     try {
       const movieSaved = await Movie.saveOnDb({ ...req.body, userId: req.userId });
-      return res.status(201).json(movieSaved);
+      return res.status(201).json({ message: 'Filme salvado com sucesso!', movie: movieSaved });
     }
     catch (error) {
       next(error);
@@ -22,7 +23,20 @@ module.exports = class MoviesController {
     }
   }
 
-  static async patchMovie(req) {
+  static async patchMovie(req, res, next) {
+    try {
+      MoviesService.validateBodyPatch({ ...req.body });
+      const {
+        title, description, imageLink, launchDate
+      } = req.body;
+      await Movie.patchMovie(req.params.id, {
+        title, description, imageLink, launchDate
+      });
 
+      return res.status(204).end();
+    }
+    catch (error) {
+      next(error);
+    }
   }
 };

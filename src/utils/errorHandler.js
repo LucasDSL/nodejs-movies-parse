@@ -2,15 +2,20 @@ const {
   InvalidFields,
   UserNotFound,
   InvalidCredentials,
-  InvalidToken
+  InvalidToken,
+  MovieNotFound,
+  InvalidFieldsMovies
+
 } = require('../errors');
 
 const errorHandler = (err, req, res, next) => {
   let status = 500;
-  if (err instanceof InvalidFields || err instanceof InvalidCredentials) {
+  if (err instanceof InvalidFields
+    || err instanceof InvalidCredentials
+    || err instanceof InvalidFieldsMovies) {
     status = 400;
   }
-  if (err instanceof UserNotFound) {
+  if (err instanceof UserNotFound || err instanceof MovieNotFound) {
     status = 404;
   }
 
