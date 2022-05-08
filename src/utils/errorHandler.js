@@ -1,7 +1,8 @@
 const {
   InvalidFields,
   UserNotFound,
-  InvalidCredentials
+  InvalidCredentials,
+  InvalidToken
 } = require('../errors');
 
 const errorHandler = (err, req, res, next) => {
@@ -13,8 +14,16 @@ const errorHandler = (err, req, res, next) => {
     status = 404;
   }
 
+  if (err instanceof InvalidToken) {
+    status = 401;
+  }
+
   return res.status(status)
-    .json({ name: err.name, message: err.message, errorId: err.errId });
+    .json({
+      name: err.name,
+      message: err.message,
+      errorId: err.errId
+    });
 };
 
 module.exports = errorHandler;

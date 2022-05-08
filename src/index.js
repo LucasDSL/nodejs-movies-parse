@@ -2,6 +2,7 @@ const express = require('express');
 const Parse = require('parse/node');
 const { ParseServer } = require('parse-server');
 const authRoutes = require('./auth/auth.routes');
+const moviesRoutes = require('./movies/movies.routes');
 const errorHandler = require('./utils/errorHandler');
 require('dotenv').config();
 
@@ -23,6 +24,7 @@ const main = () => {
   app.use(express.json());
   app.use('/parse', parseServerAPI);
   app.use('/auth', authRoutes);
+  app.use('/movies', moviesRoutes);
   app.use(errorHandler);
 
   app.listen(process.env.PORT, () => console.log(`listening port ${process.env.PORT}`));

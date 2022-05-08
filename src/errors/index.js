@@ -1,9 +1,6 @@
-const InvalidFields = require('./invalidFields');
-const UserNotFound = require('./userNotFound');
-const InvalidCredentials = require('./invalidCredentials');
-
 module.exports = {
-  InvalidFields,
-  UserNotFound,
-  InvalidCredentials
+  InvalidFields: require('./invalidFields'),
+  UserNotFound: require('./userNotFound'),
+  InvalidCredentials: require('./invalidCredentials'),
+  InvalidToken: require('./invalidToken')
 };

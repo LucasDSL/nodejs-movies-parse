@@ -1,4 +1,3 @@
-const Parse = require('parse/node');
 const User = require('./user.entity');
 
 module.exports = class UserService {
