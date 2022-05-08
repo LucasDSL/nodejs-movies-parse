@@ -5,4 +5,4 @@ module.exports = class InvalidFields extends Error {
     this.name = 'InvalidFieldsOnSignup';
     this.errId = 1;
   }
-}
+};

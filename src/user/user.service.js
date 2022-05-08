@@ -4,9 +4,7 @@ const User = require('./user.entity');
 module.exports = class UserService {
   static searchByEmail(email, next) {
     try {
-      const query = new Parse.Query(User);
-      query.equalTo('email', email);
-      return query.first();
+      return User.searchBy('email', email);
     }
     catch (error) {
       next(error);

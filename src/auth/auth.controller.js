@@ -14,7 +14,7 @@ module.exports = class AuthController {
         .json({ message: 'User criado com sucesso', user });
     }
     catch (error) {
-      return next(error);
+      next(error);
     }
   }
 

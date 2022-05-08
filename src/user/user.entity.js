@@ -12,6 +12,12 @@ class User extends Parse.Object {
     user.set('email', email);
     return user.save();
   }
+
+  static searchBy(field, equal) {
+    const query = new Parse.Query(User);
+    query.equalTo(field, equal);
+    return query.first();
+  }
 }
 
 Parse.Object.registerSubclass('User', User);
