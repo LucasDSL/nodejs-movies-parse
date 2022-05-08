@@ -1,7 +1,7 @@
 module.exports = class InvalidToken extends Error {
   constructor() {
     super('Token inválido ou autorização negada!');
-    this.errId = 3;
+    this.errId = 4;
     this.name = 'InvalidToken';
   }
 };
