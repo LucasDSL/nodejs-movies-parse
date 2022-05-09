@@ -4,6 +4,7 @@ const MoviesService = require('./movies.service');
 module.exports = class MoviesController {
   static async postMovie(req, res, next) {
     try {
+      MoviesService.validateBodyPost({ ...req.body });
       const movieSaved = await Movie.saveOnDb({ ...req.body, userId: req.userId });
       return res.status(201).json({ message: 'Filme salvo com sucesso!', movie: movieSaved });
     }

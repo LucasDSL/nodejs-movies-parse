@@ -30,4 +30,13 @@ const main = () => {
   app.listen(process.env.PORT);
 };
 
+async function liveQuery() {
+  try {
+    await subToUser();
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
 main();

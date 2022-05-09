@@ -1,8 +1,15 @@
-const InvalidFieldsMovies = require('../errors');
-const InvalidFieldsSearchMovies = require('../errors/invalidFieldsSearchMovie');
+const { InvalidFieldsMovies, InvalidFieldsSearchMovies } = require('../errors');
 const Movie = require('./movies.entity');
 
 module.exports = class MoviesService {
+  static validateBodyPost({
+    title, description, imageLink, launchDate
+  }) {
+    if (!title || !description || !imageLink || !launchDate) {
+      throw new InvalidFieldsMovies();
+    }
+  }
+
   static validateBodyPatch({
     title, description, imageLink, launchDate
   }) {
