@@ -8,5 +8,6 @@ router.all('/', AuthService.authenticateToken);
 router.post('/', MoviesController.postMovie);
 router.get('/', MoviesController.getMovies);
 router.patch('/:id', MoviesController.patchMovie);
+router.get('/:title/:launchDate', MoviesController.getByTitleLaunchDate);
 
 module.exports = router;

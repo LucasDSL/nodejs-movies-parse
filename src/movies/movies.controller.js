@@ -1,4 +1,3 @@
-const { MovieNotFound } = require('../errors');
 const Movie = require('./movies.entity');
 const MoviesService = require('./movies.service');
 
@@ -34,6 +33,20 @@ module.exports = class MoviesController {
       });
 
       return res.status(204).end();
+    }
+    catch (error) {
+      next(error);
+    }
+  }
+
+  static async getByTitleLaunchDate(req, res, next) {
+    try {
+      MoviesService.validateParamsSearchNameDate({ ...req.params });
+      const { launchDate, title } = req.params;
+      const moviesByDate = await MoviesService.findByDate(launchDate);
+      const moviesByTitle = await MoviesService.findByTitle(title);
+      const moviesFound = [...moviesByDate, ...moviesByTitle];
+      return res.status(200).json({ moviesFound: moviesFound.length, data: moviesByTitle });
     }
     catch (error) {
       next(error);

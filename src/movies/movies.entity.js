@@ -1,6 +1,5 @@
 const Parse = require('parse/node');
 const { MovieNotFound } = require('../errors');
-const MoviesService = require('./movies.service');
 
 class Movie extends Parse.Object {
   constructor() {
@@ -14,7 +13,7 @@ class Movie extends Parse.Object {
     movie.set('title', title);
     movie.set('description', description);
     movie.set('imageLink', imageLink);
-    movie.set('lauchDate', launchDate);
+    movie.set('launchDate', launchDate);
     movie.set('postedBy', userId);
     return movie.save();
   }
@@ -24,10 +23,9 @@ class Movie extends Parse.Object {
     return query.findAll();
   }
 
-  static async findById(id) {
+  static findById(id) {
     const query = new Parse.Query(Movie);
-    const movie = await query.get(id);
-    return movie;
+    return query.get(id);
   }
 
   static async patchMovie(id, fieldsToUpdate) {
@@ -41,6 +39,12 @@ class Movie extends Parse.Object {
       }
     });
     return movie.save();
+  }
+
+  static searchBy(field, equalTo) {
+    const query = new Parse.Query(Movie);
+    query.equalTo(field, equalTo);
+    return query.findAll();
   }
 }
 
