@@ -47,7 +47,7 @@ module.exports = class MoviesController {
       const moviesByDate = await MoviesService.findByDate(launchDate);
       const moviesByTitle = await MoviesService.findByTitle(title);
       const moviesFound = [...moviesByDate, ...moviesByTitle];
-      return res.status(200).json({ moviesFound: moviesFound.length, data: moviesByTitle });
+      return res.status(200).json({ moviesFound: moviesFound.length, data: moviesFound });
     }
     catch (error) {
       next(error);

@@ -4,7 +4,7 @@ const AuthService = require('../auth/auth.service');
 
 const router = Router();
 
-router.all('/', AuthService.authenticateToken);
+router.all('/*', AuthService.authenticateToken);
 router.post('/', MoviesController.postMovie);
 router.get('/', MoviesController.getMovies);
 router.patch('/:id', MoviesController.patchMovie);
