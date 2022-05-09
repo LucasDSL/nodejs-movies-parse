@@ -18,7 +18,7 @@ module.exports = class MoviesService {
   }
 
   static findByDate(date) {
-    return Movie.searchBy('lauchDate', date);
+    return Movie.searchBy('launchDate', date);
   }
 
   static findByTitle(title) {

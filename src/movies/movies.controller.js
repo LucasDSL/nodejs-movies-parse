@@ -5,7 +5,7 @@ module.exports = class MoviesController {
   static async postMovie(req, res, next) {
     try {
       const movieSaved = await Movie.saveOnDb({ ...req.body, userId: req.userId });
-      return res.status(201).json({ message: 'Filme salvado com sucesso!', movie: movieSaved });
+      return res.status(201).json({ message: 'Filme salvo com sucesso!', movie: movieSaved });
     }
     catch (error) {
       next(error);
