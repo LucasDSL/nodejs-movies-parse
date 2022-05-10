@@ -23,5 +23,5 @@ Pode-se utilizar o botão "Run in Postman" dentro da documentação abaixo, para
 - [Documentação](https://documenter.getpostman.com/view/16085223/Uyxeoo71#5156661d-a551-4915-9ea8-4d0fd1deb99e)
 
 Ou carregar os arquivos postman no seu postman local.
-- [positive_test](./docs/positive_tests.json) - testes que funcionam no fluxo normal do programa, sem erros, como por exemplo, criar uma conta corretamente, logar nela, postar filme com o token correto, etc
+- [positive_test](./docs/positive_tests.json) - somente os testes funcionando no fluxo normal do programa, sem erros, como por exemplo, criar uma conta corretamente, logar nela, postar filme com o token correto, etc
 - [Collection](./docs/Test_Mobapps.postman_collection.json) - documentação completa para poder mudar as requisições e encontrar os diferentes resultados de teste.
