@@ -1,0 +1,1452 @@
+{
+	"info": {
+		"_postman_id": "e373f422-9419-4116-838f-be0f62000d23",
+		"name": "Test Mobapps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"// Tests for successfull request ",
+									"pm.test(\"Status code is 201\",  () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Tests for wrong request",
+									"const response = pm.response;",
+									"",
+									"pm.test(\"Status code is 400(Bad request)\", () => {",
+									"    pm.expect(response.status).to.eql(\"Bad Request\");",
+									"    pm.expect(response.to.have.status(400))",
+									"})",
+									"",
+									"pm.test(\"Expect body to have this fields\", () => {",
+									"    var jsonData = pm.response.json();",
+									"    pm.test(\"Test error message\", () => {",
+									"        pm.expect(jsonData.message).to.eql(\"Email e password são campos obrigatórios e devem ser do tipo string!\");",
+									"    })",
+									"    pm.test(\"Test errorId\", () => {",
+									"        pm.expect(jsonData.errorId).to.eql(1);",
+									"    });",
+									"    pm.test(\"Test error name\", () => {",
+									"        pm.expect(jsonData.name).to.eql(\"InvalidFieldsOnSignup\");",
+									"    })",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"luc4s@email.com\",\n    \"password\": \"lucas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User created successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"luc4s@email.com\",\n    \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/auth/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "248"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f8-uX0tn52bIyHzPOIe0NTNlZhLHmg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:29:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User criado com sucesso\",\n    \"user\": {\n        \"password\": \"$2b$08$Rzk4MZ4LQfWiT7v1TbaoquzPLgfExes1kTQgIWlXQml35E1/ph3Mm\",\n        \"email\": \"luc4s@email.com\",\n        \"createdAt\": \"2022-05-09T23:29:26.466Z\",\n        \"updatedAt\": \"2022-05-09T23:29:26.466Z\",\n        \"objectId\": \"z2pB6PeHys\"\n    }\n}"
+						},
+						{
+							"name": "Invalid Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"luc4s@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/auth/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "127"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7f-SR2sGBny5+vV+mApQOyUXu0YshA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:29:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidFieldsOnSignup\",\n    \"message\": \"Email e password são campos obrigatórios e devem ser do tipo string!\",\n    \"errorId\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"// Tests for successfull request ",
+									"pm.test(\"Status code is 201\",  () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Return accessToken\", () => {",
+									"    pm.expect(resp.accessToken).to.be.a('string');",
+									"})",
+									"pm.globals.set(\"accessToken\", resp.accessToken)",
+									"",
+									"// Tests for failing requests",
+									"const response = pm.response;",
+									"",
+									"pm.test(\"Status code is 400(Bad request)\", () => {",
+									"    pm.expect(response.status).to.eql(\"Bad Request\");",
+									"    pm.expect(response.to.have.status(400))",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"luc4s@email.com\",\n    \"password\": \"lucas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"luc4s@email.com\",\n    \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"61-S1VtPGcjmSVFBS4ZivgbNDn8/Oc\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:29:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": {{accessToken}}\n}"
+						},
+						{
+							"name": "Invalid credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"luc4s@email.com\",\n    \"password\": \"12\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "80"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"50-Z162wkZmcCzbg2klThdQ1EWCm+I\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:30:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidCredentials\",\n    \"message\": \"Email ou senha incorretos!\",\n    \"errorId\": 3\n}"
+						},
+						{
+							"name": "Invalid Body",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"luc4s@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "127"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7f-SR2sGBny5+vV+mApQOyUXu0YshA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:30:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidFieldsOnSignup\",\n    \"message\": \"Email e password são campos obrigatórios e devem ser do tipo string!\",\n    \"errorId\": 1\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"// Tests for successfull request ",
+									"pm.test(\"Status code is 201\",  () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response should have\", () => {",
+									"    pm.test(\"Message == 'Filme salvo com sucesso!'\", () => {",
+									"        pm.expect(resp.message).to.be.equal(\"Filme salvo com sucesso!\");",
+									"    })",
+									"",
+									"    pm.test(\"movie == object\", () => {",
+									"        pm.expect(resp.movie).to.be.a('object')",
+									"    }) ",
+									"})",
+									"",
+									"// Tests for failing requests",
+									"const response = pm.response;",
+									"",
+									"pm.test(\"Status code is 400(Bad request)\", () => {",
+									"    pm.expect(response.status).to.eql(\"Bad Request\");",
+									"    pm.expect(response.to.have.status(400))",
+									"})",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The batman\",\n    \"description\": \"Batman luta com o crime e contra a luz do sol\",\n    \"launchDate\": \"2022\",\n    \"imageLink\": \"batimage\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Movie saved",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Miranha 3\",\n    \"description\": \"Miranha e tretas com o Dr Estranho\",\n    \"launchDate\": \"2021\",\n    \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "531"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"213-8OdrPeAXAXJFeXH1r6NnXivS64w\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:31:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Filme salvo com sucesso!\",\n    \"movie\": {\n        \"title\": \"Miranha 3\",\n        \"description\": \"Miranha e tretas com o Dr Estranho\",\n        \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\",\n        \"launchDate\": \"2021\",\n        \"postedBy\": \"z2pB6PeHys\",\n        \"createdAt\": \"2022-05-09T23:31:44.352Z\",\n        \"updatedAt\": \"2022-05-09T23:31:44.352Z\",\n        \"objectId\": \"14fscX8HT4\"\n    }\n}"
+						},
+						{
+							"name": "Error new movie",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"Miranha e tretas com o Dr Estranho\",\n    \"launchDate\": \"2021\",\n    \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "179"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b3-AC71ZWBRNTT4T0NGK88cLacx3Kg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:38:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidFieldsMovies\",\n    \"message\": \"\\n    Todos os campos precisam ser preenchidos:\\n    Campos: ['title', 'description', 'imageLink', 'launchDate(dd-mm-yyyy)']\",\n    \"errorId\": 5\n}"
+						},
+						{
+							"name": "Unauthorized to post movie",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer wrongJwt",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"Miranha e tretas com o Dr Estranho\",\n    \"launchDate\": \"2021\",\n    \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"58-UQD/6K3bRyMNOC743yzJdLlI8HA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:38:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidToken\",\n    \"message\": \"Token inválido ou autorização negada!\",\n    \"errorId\": 4\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json()",
+									"pm.test(\"Shoud have status 200\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('OK');",
+									"})",
+									"pm.test(\"should return number of movies and list of movies\", () => {",
+									"    pm.expect(res.moviesFound).to.be.a('number');",
+									"    pm.expect(res.data).to.be.a('array')",
+									"})",
+									"",
+									"pm.test(\"should return an status 401\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Unauthorized')",
+									"})",
+									"",
+									"pm.test(\"should return Unauthorized error\", () => {",
+									"    pm.expect(res.name).to.be.equal('InvalidToken')",
+									"    pm.expect(res.message).to.be.equal(\"Token inválido ou autorização negada!\")",
+									"    pm.expect(res.errorId).to.be.equal(4);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "See all movies",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3000/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiJ9.aVM2UVM0Q2Y5ag.FU7ytEx16fx3yAVgxX_clx5cvheoi1DkigO7BFnd1KA",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "765"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2fd-HXG4l8JB4uqUiGEWlasOEwO9fk8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:45:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"moviesFound\": 2,\n    \"data\": [\n        {\n            \"title\": \"The batman\",\n            \"description\": \"Batman luta com o crime e contra a luz do sol\",\n            \"imageLink\": \"batimage\",\n            \"launchDate\": \"2022\",\n            \"postedBy\": \"QHbYT3Mp1q\",\n            \"createdAt\": \"2022-05-09T23:45:26.500Z\",\n            \"updatedAt\": \"2022-05-09T23:45:26.500Z\",\n            \"objectId\": \"REbVEjc9Mn\"\n        },\n        {\n            \"title\": \"Miranha 3\",\n            \"description\": \"Miranha e tretas com o Dr Estranho\",\n            \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\",\n            \"launchDate\": \"2021\",\n            \"postedBy\": \"QHbYT3Mp1q\",\n            \"createdAt\": \"2022-05-09T23:44:47.349Z\",\n            \"updatedAt\": \"2022-05-09T23:44:47.349Z\",\n            \"objectId\": \"wVs04FMkSs\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer wrongJwt",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3000/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiJ9.aVM2UVM0Q2Y5ag.FU7ytEx16fx3yAVgxX_clx5cvheoi1DkigO7BFnd1KA",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"58-UQD/6K3bRyMNOC743yzJdLlI8HA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:45:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidToken\",\n    \"message\": \"Token inválido ou autorização negada!\",\n    \"errorId\": 4\n}"
+						}
+					]
+				},
+				{
+					"name": "Search by launchDate and title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.test(\"should return status 200\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal(\"OK\");",
+									"})",
+									"pm.test(\"should return number os movies found and list of movies\", () => {",
+									"    pm.expect(resp.moviesFound).to.be.a('number');",
+									"    pm.expect(resp.data).to.be.a('array')",
+									"})",
+									"",
+									"pm.test(\"should return an status 401\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Unauthorized')",
+									"})",
+									"",
+									"pm.test(\"should return Unauthorized error\", () => {",
+									"    pm.expect(resp.name).to.be.equal('InvalidToken')",
+									"    pm.expect(resp.message).to.be.equal(\"Token inválido ou autorização negada!\")",
+									"    pm.expect(resp.errorId).to.be.equal(4);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/movies/{{title}}/{{launchDate}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movies",
+								"{{title}}",
+								"{{launchDate}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Find movie by year but not name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3000/movies/thebatman/2022",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"thebatman",
+										"2022"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "511"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1ff-S4bEngnMA3E7YPacd/a1cYDkFVE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:49:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"moviesFound\": 1,\n    \"data\": [\n        {\n            \"title\": \"Miranha 3\",\n            \"description\": \"Miranha e tretas com o Dr Estranho\",\n            \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\",\n            \"launchDate\": \"2021\",\n            \"postedBy\": \"QHbYT3Mp1q\",\n            \"createdAt\": \"2022-05-09T23:44:47.349Z\",\n            \"updatedAt\": \"2022-05-09T23:44:47.349Z\",\n            \"objectId\": \"wVs04FMkSs\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Find by name but not year",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3000/movies/The%20batman/2025",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"The%20batman",
+										"2025"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "280"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"118-vpcKNWYpJzceXaQcIKdxWJomrCQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:50:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"moviesFound\": 1,\n    \"data\": [\n        {\n            \"title\": \"The batman\",\n            \"description\": \"Batman luta com o crime e contra a luz do sol\",\n            \"imageLink\": \"batimage\",\n            \"launchDate\": \"2022\",\n            \"postedBy\": \"QHbYT3Mp1q\",\n            \"createdAt\": \"2022-05-09T23:45:26.500Z\",\n            \"updatedAt\": \"2022-05-09T23:45:26.500Z\",\n            \"objectId\": \"REbVEjc9Mn\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Find by both parameters",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3000/movies/The%20batman/2021",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"The%20batman",
+										"2021"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "765"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2fd-XWDw7Ir7dyRcqzBnTy1vCQ8anIQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:50:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"moviesFound\": 2,\n    \"data\": [\n        {\n            \"title\": \"Miranha 3\",\n            \"description\": \"Miranha e tretas com o Dr Estranho\",\n            \"imageLink\": \"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flarepublica.pe%2Fresizer%2FCf2TGAitaW86AJv2WGrGmCwdvsU%3D%2F1250x735%2Ftop%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fgruporepublica%2FHYOXOFFEBJGIBMHOYTBFBLPIUA.jpg&f=1&nofb=1\",\n            \"launchDate\": \"2021\",\n            \"postedBy\": \"QHbYT3Mp1q\",\n            \"createdAt\": \"2022-05-09T23:44:47.349Z\",\n            \"updatedAt\": \"2022-05-09T23:44:47.349Z\",\n            \"objectId\": \"wVs04FMkSs\"\n        },\n        {\n            \"title\": \"The batman\",\n            \"description\": \"Batman luta com o crime e contra a luz do sol\",\n            \"imageLink\": \"batimage\",\n            \"launchDate\": \"2022\",\n            \"postedBy\": \"QHbYT3Mp1q\",\n            \"createdAt\": \"2022-05-09T23:45:26.500Z\",\n            \"updatedAt\": \"2022-05-09T23:45:26.500Z\",\n            \"objectId\": \"REbVEjc9Mn\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer wrongJwt",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3000/movies/The%20batman/2021",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"The%20batman",
+										"2021"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"58-UQD/6K3bRyMNOC743yzJdLlI8HA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 May 2022 23:52:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidToken\",\n    \"message\": \"Token inválido ou autorização negada!\",\n    \"errorId\": 4\n}"
+						}
+					]
+				},
+				{
+					"name": "Patch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should return status 204\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal(\"No Content\");",
+									"})",
+									"",
+									"pm.test(\"should return an status 401\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Unauthorized')",
+									"})",
+									"",
+									"const res = pm.response.json()",
+									"pm.test(\"should return Unauthorized error\", () => {",
+									"    pm.expect(res.name).to.be.equal('InvalidToken')",
+									"    pm.expect(res.message).to.be.equal(\"Token inválido ou autorização negada!\")",
+									"    pm.expect(res.errorId).to.be.equal(4);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"O miranha\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/movies/{{movieId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movies",
+								"{{movieId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Patch successfully",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"O miranha\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/movies/{{movieId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"{{movieId}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 10 May 2022 00:00:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer wrongJwt",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"O miranha\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/movies/{{movieId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"{{movieId}}"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"58-UQD/6K3bRyMNOC743yzJdLlI8HA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 10 May 2022 00:00:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidToken\",\n    \"message\": \"Token inválido ou autorização negada!\",\n    \"errorId\": 4\n}"
+						},
+						{
+							"name": "Invalid body",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/movies/{{movieId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"movies",
+										"{{movieId}}"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "179"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b3-AC71ZWBRNTT4T0NGK88cLacx3Kg\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 10 May 2022 00:02:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"InvalidFieldsMovies\",\n    \"message\": \"\\n    Todos os campos precisam ser preenchidos:\\n    Campos: ['title', 'description', 'imageLink', 'launchDate(dd-mm-yyyy)']\",\n    \"errorId\": 5\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
